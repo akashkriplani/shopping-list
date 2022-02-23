@@ -1,7 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormArray,
+  FormControl,
+  FormGroup,
+  Validators
+} from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
-import { Recipe } from '../recipe.model';
 import { RecipeService } from '../recipe.service';
 
 @Component({
@@ -19,7 +24,7 @@ export class RecipeEditComponent implements OnInit {
     private recipeService: RecipeService
   ) {}
 
-  get controls() {
+  get controls(): AbstractControl[] {
     return (<FormArray>this.recipeForm.get('ingredients')).controls;
   }
 
