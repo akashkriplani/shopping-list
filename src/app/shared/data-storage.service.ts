@@ -1,8 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Recipe } from '../recipes/recipe.model';
 import { RecipeService } from '../recipes/recipe.service';
-
-const URL = 'https://ng-recipe-book-354f7-default-rtdb.firebaseio.com/';
 
 @Injectable({ providedIn: 'root' })
 export class DataStorageService {
@@ -10,8 +9,23 @@ export class DataStorageService {
 
   storeRecipes() {
     const recipes = this.recipeService.getRecipes();
-    this.http.put(URL + 'recipes.json', recipes).subscribe((response) => {
-      console.log(response);
-    });
+    this.http
+      .put(
+        'https://ng-recipe-book-354f7-default-rtdb.firebaseio.com/recipes.json',
+        recipes
+      )
+      .subscribe((response) => {
+        console.log(response);
+      });
+  }
+
+  fetchRecipes() {
+    this.http
+      .get<Recipe[]>(
+        'https://ng-recipe-book-354f7-default-rtdb.firebaseio.com/recipes.json'
+      )
+      .subscribe((recipes) => {
+        this.recipeService.setRecipes(recipes);
+      });
   }
 }
