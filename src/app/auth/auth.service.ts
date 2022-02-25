@@ -4,18 +4,30 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { API_KEY } from './auth.constants';
 
-interface AuthResponseData {
+export interface AuthResponseData {
   kind: string;
   email: string;
   idToken: string;
   expiresIn: string;
   localId: string;
   refreshToken: string;
+  registered?: boolean;
 }
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   constructor(private http: HttpClient) {}
+
+  login(email: string, password: string): Observable<AuthResponseData> {
+    return this.http.post<AuthResponseData>(
+      `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${API_KEY}`,
+      {
+        email: email,
+        password: password,
+        returnSecureToken: true
+      }
+    );
+  }
 
   signup(email: string, password: string): Observable<AuthResponseData> {
     return this.http
