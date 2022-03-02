@@ -161,8 +161,6 @@ export class AuthEffects {
           token: loadedUser.token,
           expirationDate: new Date(userData._tokenExpirationDate)
         });
-
-        // this.autoLogout(expirationDuration);
       }
 
       return { type: 'DUMMY' };
