@@ -8,6 +8,7 @@ export interface State {
 const initialState: State = {
   recipes: []
 };
+
 export function recipesReducer(
   state: State = initialState,
   action: RecipesActions.RecipesActions
