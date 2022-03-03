@@ -25,7 +25,7 @@ export class RecipeDetailComponent implements OnInit {
   ngOnInit(): void {
     this.route.params
       .pipe(
-        map((params) => {
+        map((params: Params) => {
           return +params['id'];
         }),
         switchMap((id) => {
